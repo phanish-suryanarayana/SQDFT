@@ -1,6 +1,8 @@
 # SQDFT
   SQDFT is a code for performing high-temperature Born-Oppenheimer Quantum Molecular Dynamics 
-  (QMD) in the framework of Kohn-Sham Density Functional Theory (DFT).
+  (QMD) in the framework of Kohn-Sham Density Functional Theory (DFT). While applicable at any temperature, the SQDFT code is most efficient at high temperature where the Fermi-Dirac distribution becomes smoother and density matrix becomes correspondingly more localized.  SQDFT employs the O(N) infinite-cell Clenshaw-Curtis Spectral Quadrature (SQ) method, a technique that is applicable to metallic as well as insulating systems, is highly parallelizable to hundreds of thousands of processors, becomes increasingly efficient with increasing temperature, and provides results corresponding to the infinite crystal without the need of Brillouin zone integration. 
+  
+**Users of SQDFT are expected to cite the following publication: Suryanarayana, P., Pratapa, P.P., Sharma, A. and Pask, J.E., 2018. SQDFT: Spectral Quadrature method for large-scale parallel O (N) Kohn–Sham calculations at high temperature. Computer Physics Communications, 224, pp.288-298.**  
 
 1. External Libraries:
     SQDFT uses the following external library:  
