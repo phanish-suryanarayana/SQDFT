@@ -58,9 +58,9 @@
    
    - In "SQDFT/inc" folder
    
-     ds_sq.h                   : Header file containing information of all data structures
-     func_sq.h                : Header file declaring all the functions used in this code
-     headers.h               : Header file declaring all the standard header files required for this code
+     **ds_sq.h**                  : Header file containing information of all data structures    
+     **func_sq.h**               : Header file declaring all the functions used in this code    
+     **headers.h**               : Header file declaring all the standard header files required for this code   
 
    - In "SQDFT/lib" folder
 
