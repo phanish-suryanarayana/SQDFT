@@ -11,7 +11,7 @@
 2. Compilation:
     SQDFT can be compiled from within the "SQDFT" folder using the commands: 
 
-     `make clean`
+     `make clean`  
      `make`
 
     A successful compilation will lead to the creation of the executable "SQDFT/lib/sqdft"
@@ -71,20 +71,20 @@
      Subfolder containing pseudopotential files for Aluminium, Hydrogen and Lithium
    
    - In "SQDFT/src" folder
-
-     anderson.cpp            : Functions for performing Anderson extrapolation  
-     deallocate.cpp           : Function for de-allocating the memory   
-     energy.cpp                 : Functions for computing energy  
-     forces.cpp                  : Functions for computing the atomic forces  
-     initialize.cpp              : Functions for initializion  
-     main.cpp                    : The main function  
-     md.cpp                       : Functions required for Quantum Molecular Dynamics (QMD)  
-     nonlocal.cpp              : Functions for calculation related to the nonlocal projectors  
-     poisson.cpp               : Functions for solving the Poisson's equation  
-     readfiles.cpp             : Functions for reading and storing the inputs from the given input files  
-     scf.cpp                        : Functions required in the SCF iteration  
-     spline.cpp                  : Functions for doing the 1d cubic spline interpolation  
-     sq.cpp                        : Functions for performing Spectral Quadrature (SQ)  
+     |:-------------- | -----------------------------------------------------------------------:|
+     |anderson.cpp    |: Functions for performing Anderson extrapolation                        |
+     |deallocate.cpp  |: Function for de-allocating the memory                                  |
+     |energy.cpp      |: Functions for computing energy                 			|
+     |forces.cpp      |: Functions for computing the atomic forces  				|
+     |initialize.cpp  |: Functions for initializion  						|
+     |main.cpp        |: The main function  							|
+     |md.cpp          |: Functions required for Quantum Molecular Dynamics (QMD)  		|
+     |nonlocal.cpp    |: Functions for calculation related to the nonlocal projectors  		|
+     |poisson.cpp     |: Functions for solving the Poisson's equation  				|
+     |readfiles.cpp   |: Functions for reading and storing the inputs from the given input files| 
+     |scf.cpp         |: Functions required in the SCF iteration  				|
+     |spline.cpp      |: Functions for doing the 1d cubic spline interpolation  		|
+     |sq.cpp          |: Functions for performing Spectral Quadrature (SQ)  			|
    
    - In "SQDFT/tests" folder
 
