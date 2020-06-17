@@ -70,7 +70,7 @@
 
      Subfolder containing pseudopotential files for Aluminium, Hydrogen and Lithium
    
-   - In "SQDFT/src" folder
+   - In "SQDFT/src" folder  
      **anderson.cpp**            : Functions for performing Anderson extrapolation   
      **deallocate.cpp**           : Function for de-allocating the memory    
      **energy.cpp**                 : Functions for computing energy    
