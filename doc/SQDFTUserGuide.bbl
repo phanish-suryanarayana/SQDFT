@@ -1,0 +1,47 @@
+\begin{thebibliography}{1}
+
+\bibitem{Hohenberg}
+P.~Hohenberg and W.~Kohn.
+\newblock Inhomogeneous electron gas.
+\newblock {\em Physical Review}, 136(3B):B864--B871, 1964.
+
+\bibitem{Kohn1965}
+W.~Kohn and L.~J. Sham.
+\newblock Self-consistent equations including exchange and correlation effects.
+\newblock {\em Physical Review}, 140(4A):A1133--A1138, 1965.
+
+\bibitem{Troullier}
+N.~Troullier and J.~L. Martins.
+\newblock Efficient pseudopotentials for plane-wave calculations.
+\newblock {\em Physical Review B}, 43(3):1993--2006, 1991.
+
+\bibitem{suryanarayana2013spectral}
+Phanish Suryanarayana.
+\newblock On spectral quadrature for linear-scaling density functional theory.
+\newblock {\em Chemical Physics Letters}, 584:182--187, 2013.
+
+\bibitem{pratapa2015spectral}
+Phanisri~P Pratapa, Phanish Suryanarayana, and John~E Pask.
+\newblock Spectral quadrature method for accurate o (n) electronic structure
+  calculations of metals and insulators.
+\newblock {\em Computer Physics Communications}, 2015.
+
+\bibitem{pratapa2016anderson}
+Phanisri~P Pratapa, Phanish Suryanarayana, and John~E Pask.
+\newblock Anderson acceleration of the jacobi iterative method: An efficient
+  alternative to krylov methods for large, sparse linear systems.
+\newblock {\em Journal of Computational Physics}, 306:43--54, 2016.
+
+\bibitem{suryanarayana2016alternating}
+Phanish Suryanarayana, Phanisri~P Pratapa, and John~E Pask.
+\newblock Alternating anderson-richardson method: An efficient alternative to
+  preconditioned krylov methods for large, sparse linear systems.
+\newblock {\em arXiv preprint arXiv:1606.08740}, 2016.
+
+\bibitem{banerjee2015periodic}
+Amartya~S Banerjee, Phanish Suryanarayana, and John~E Pask.
+\newblock Periodic pulay method for robust and efficient convergence
+  acceleration of self-consistent field iterations.
+\newblock {\em Chemical Physics Letters}, 2016.
+
+\end{thebibliography}

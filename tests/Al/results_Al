@@ -1,0 +1,169 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+       Spectral Quadrature Density Functional Theory (SQDFT) 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+ 
+SQDFT version-0 
+Starting time: Sun Jul  9 16:58:38 2017
+ 
+Assuming CUBICAL DOMAIN. nprocx=nprocy=nprocz 
+Choosing 2 processors in each direction. Total nproc= 8 
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+ 
+Reading input file... 
+  Atoms       : Al_eq 
+  ncell       : 1 
+  domain      : [7.78000000 7.78000000 7.78000000] Bohr 
+  n_int       : [10 10 10] 
+  delta       : 0.77800000000000 
+  unit cell   : 7.7800 Bohr
+  max perturb : 0.000 Bohr
+  rand_seed   : 2 
+  T (K)       : 46418.02000000 
+  npl         : 28 
+  Rcut        : 6.224000 Bohr
+  nloc        : 8 
+  FD order    : 12 
+  Poisson Tol : 1e-06 
+  Poisson MaxIter: 1000 
+  Lanczos Tol : 1e-06 
+  Fermi Tol   : 1e-06 
+  SCF Tol     : 0.0001 
+  SCF MinIter : 3 
+  SCF MaxIter : 40 
+  beta_aaj    : 0.60 
+  m_aaj       : 7 
+  p_aaj       : 6 
+  beta_scf    : 0.10 
+  m_scf       : 7 
+  p_scf       : 2 
+  non_blocking: 0 
+  prnt_atoms  : 0 
+  time_step   : 1.0000 fs
+  MaxMDsteps  : 1 
+  MD time     : 1.0000 fs
+  ChgExtrap   : 1 
+  restart_scf : 0 
+  prnt_scf    : 0 
+  restart_md  : 0 
+  prnt_md     : 1 
+  RelaxAtoms  : 0 
+  Vel Dstr    : Maxwell-Boltzmann
+Reading ./Al_eq.atoms file... 
+4 atoms in unit cell. Replicating unit cell 1 times in each direction... 
+Total number of atoms = 4 
+n_typ: 1 
+Al 3 26.98153850 4 1 6.2240
+./pseudopotentials/psd_Al.pot 
+0.000000000000 0.000000000000 0.000000000000 
+0.000000000000 3.890000000000 3.890000000000 
+3.890000000000 0.000000000000 3.890000000000 
+3.740000000000 3.490000000000 0.370000000000 
+Completed reading atoms!
+ 
+Reading pseudopotential file for Al... max rc is: 3.112000 and rz=5.446000 
+done! 
+ 
+Note: Times printed in parentheses () beside the full time taken indicate the MPI communications part of the calculation. 
+ 
+Time spent in initialization = 1.1857 (0.2054) seconds. 
+Break down: 
+Reading input files time     = 0.9917 (0.0119) seconds. 
+MPI_Barrier after reading    = 0.0610 seconds. 
+Init & create comm topos     = 0.1330 (0.1326) seconds. 
+ 
+Energy Correction (Ha/atom) : 0.00000776419798 
+Poisson solver (AAJ) converged!:  Iterations = 46, Relative Residual = 9.71123e-07, Time = 1.5228 (0.4898) sec
+Rank=0,Poisson Solver took 1.5229 seconds. 
+Lanczos took 35 iterations. 
+Brent's algorithm took 15 iterations. 
+Time stats (sec): MPI_Comm = 0.00 (0.00), Lanczos = 10.72, Cheb_Comps = 4.22, Fermi_energy calc = 0.27 (0.11), Rho_Ebs_Eent = 0.07 (0.02) 
+Poisson solver (AAJ) converged!:  Iterations = 37, Relative Residual = 1.51603e-07, Time = 0.8609 (0.3462) sec
+Iter:1,SCF_err = 0.244939, Fermi energy (Ha) : 0.236781162275  and Total energy (Ha/atom) : -2.465517914262 
+Time taken for current SCF iteration = 16.16 (0.48) sec 
+Lanczos took 35 iterations. 
+Brent's algorithm took 10 iterations. 
+Time stats (sec): MPI_Comm = 0.01 (0.01), Lanczos = 9.77, Cheb_Comps = 3.89, Fermi_energy calc = 3.59 (3.44), Rho_Ebs_Eent = 0.06 (0.02) 
+Poisson solver (AAJ) converged!:  Iterations = 25, Relative Residual = 2.05665e-07, Time = 0.5431 (0.1815) sec
+Iter:2,SCF_err = 0.21835, Fermi energy (Ha) : 0.241038165805  and Total energy (Ha/atom) : -2.568868613957 
+Time taken for current SCF iteration = 17.90 (3.67) sec 
+Lanczos took 35 iterations. 
+Brent's algorithm took 9 iterations. 
+Time stats (sec): MPI_Comm = 0.01 (0.01), Lanczos = 12.56, Cheb_Comps = 4.90, Fermi_energy calc = 1.35 (1.24), Rho_Ebs_Eent = 0.06 (0.02) 
+Poisson solver (AAJ) converged!:  Iterations = 31, Relative Residual = 7.39092e-07, Time = 0.5264 (0.3043) sec
+Iter:3,SCF_err = 0.0278348, Fermi energy (Ha) : 0.275663738758  and Total energy (Ha/atom) : -2.463146484823 
+Time taken for current SCF iteration = 19.43 (1.58) sec 
+Lanczos took 35 iterations. 
+Brent's algorithm took 10 iterations. 
+Time stats (sec): MPI_Comm = 0.01 (0.01), Lanczos = 10.87, Cheb_Comps = 4.28, Fermi_energy calc = 1.32 (1.20), Rho_Ebs_Eent = 0.06 (0.00) 
+Poisson solver (AAJ) converged!:  Iterations = 22, Relative Residual = 9.28397e-07, Time = 0.0071 (0.0006) sec
+Iter:4,SCF_err = 0.0223267, Fermi energy (Ha) : 0.275810657617  and Total energy (Ha/atom) : -2.456907647325 
+Time taken for current SCF iteration = 16.55 (1.21) sec 
+Lanczos took 35 iterations. 
+Brent's algorithm took 10 iterations. 
+Time stats (sec): MPI_Comm = 0.00 (0.00), Lanczos = 12.52, Cheb_Comps = 5.07, Fermi_energy calc = 0.17 (0.07), Rho_Ebs_Eent = 0.05 (0.02) 
+Poisson solver (AAJ) converged!:  Iterations = 25, Relative Residual = 3.42843e-07, Time = 0.0188 (0.0025) sec
+Iter:5,SCF_err = 0.000731578, Fermi energy (Ha) : 0.277366628769  and Total energy (Ha/atom) : -2.452478526998 
+Time taken for current SCF iteration = 17.83 (0.10) sec 
+Lanczos took 35 iterations. 
+Brent's algorithm took 10 iterations. 
+Time stats (sec): MPI_Comm = 0.00 (0.00), Lanczos = 10.08, Cheb_Comps = 3.92, Fermi_energy calc = 3.15 (3.02), Rho_Ebs_Eent = 0.04 (0.00) 
+Poisson solver (AAJ) converged!:  Iterations = 13, Relative Residual = 8.26341e-07, Time = 0.2991 (0.2975) sec
+Iter:6,SCF_err = 0.000611174, Fermi energy (Ha) : 0.277370449261  and Total energy (Ha/atom) : -2.453432585727 
+Time taken for current SCF iteration = 17.58 (3.38) sec 
+Lanczos took 35 iterations. 
+Brent's algorithm took 10 iterations. 
+Time stats (sec): MPI_Comm = 0.02 (0.02), Lanczos = 12.20, Cheb_Comps = 4.74, Fermi_energy calc = 0.54 (0.36), Rho_Ebs_Eent = 0.05 (0.00) 
+Poisson solver (AAJ) converged!:  Iterations = 19, Relative Residual = 3.46275e-07, Time = 0.0359 (0.0142) sec
+Iter:7,SCF_err = 0.000131884, Fermi energy (Ha) : 0.277351337426  and Total energy (Ha/atom) : -2.453472886287 
+Time taken for current SCF iteration = 17.59 (0.40) sec 
+Lanczos took 35 iterations. 
+Brent's algorithm took 10 iterations. 
+Time stats (sec): MPI_Comm = 0.00 (0.00), Lanczos = 9.99, Cheb_Comps = 3.84, Fermi_energy calc = 0.88 (0.79), Rho_Ebs_Eent = 0.06 (0.03) 
+Poisson solver (AAJ) converged!:  Iterations = 7, Relative Residual = 6.28615e-07, Time = 0.1251 (0.0605) sec
+Iter:8,SCF_err = 0.000121979, Fermi energy (Ha) : 0.277353207095  and Total energy (Ha/atom) : -2.453382670055 
+Time taken for current SCF iteration = 14.95 (0.91) sec 
+Lanczos took 35 iterations. 
+Brent's algorithm took 10 iterations. 
+Time stats (sec): MPI_Comm = 0.01 (0.01), Lanczos = 8.85, Cheb_Comps = 3.41, Fermi_energy calc = 4.15 (4.06), Rho_Ebs_Eent = 0.04 (0.02) 
+Poisson solver (AAJ) converged!:  Iterations = 13, Relative Residual = 3.4218e-07, Time = 0.0139 (0.0123) sec
+Iter:9,SCF_err = 1.56619e-05, Fermi energy (Ha) : 0.277377479887  and Total energy (Ha/atom) : -2.453313155422 
+Time taken for current SCF iteration = 16.48 (4.09) sec 
+SCF converged! 
+No. of  SCF iterations : 9 
+Free energy (Ha/atom)    : -2.453313155422 
+Total SCF time         : 154.47 (15.82) sec 
+
+
+Time stats: Interp=0.0001, VJ calc = 1.8411, bJ calc = 0.0377, gradbJ calc = 0.0036 
+Time taken for local forces = 1.90 sec 
+ 
+Time taken for non-local forces = 9.39 sec 
+ 
+Time taken for MPI_Allreduce of forces = 2.72 sec 
+ 
+Atomic forces: 
+  -0.005345683815    -0.012594306453    -0.003231691360 
+  -0.005219311754    0.003434469182    0.011589035826 
+  0.001435243122    -0.014225977631    0.013414359697 
+  0.009239193226    0.023368210633    -0.021785233269 
+Total forces time      : 14.01 (2.72) sec 
+Time taken to find max 4 forces = 0.00 sec 
+ 
+Symmetrizing forces. 
+Total wall time (comm time)   = 171.1887  seconds. 
+Break down: 
+MPI_Barrier after 1st Poisson = 0.0120 seconds. 
+SCF time                      = 154.4693 seconds. 
+Forces time                   = 14.0082 seconds. 
+Total wall time   = 172.3747 
+============================== 
+ 
+References for SQDFT: 
+   (1) Spectral Quadrature method for accurate O(N) electronic structure calculations of metals and insulators, P.P. Pratapa, P. Suryanarayana, and J.E. Pask, Comput. Phys. Commun. 200, 96--107 (2016). 
+   (2) Anderson acceleration of the Jacobi iterative method: an efficient alternative to Krylov methods for large, sparse linear systems, P.P. Pratapa, P. Suryanarayana, J.E. Pask, J. Comput. Phys. 306, 43--54 (2016). 
+   (3) Periodic Pulay method for robust and efficient convergence acceleration of self-consistent field iterations, A.S. Banerjee, P. Suryanarayana, J.E. Pask, Chem. Phys. Lett. 647, 31--35 (2016). 
+ 
+End of run for 4 atom system on 8 processors. 
+Ending time: Sun Jul  9 17:01:30 2017
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 

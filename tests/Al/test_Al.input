@@ -1,0 +1,52 @@
+// ---------------- System information ----------------------
+atoms_file Al_eq        // Name of .atoms file
+domain 7.78 7.78 7.78   // Bohr, unit cell size in each direction 
+n_int 10 10 10          // number of intervals in single unit cell
+ncell 1                 // no. of unit cells in each direction (multiplies domain and n_int)
+perturb 0.0             // Bohr, all the atoms would be randomly perturbed by a max of perturb in each direction
+rand_seed 2             // choose a natural number as a random seed for perturb
+
+// ---------------- SQ parameters -----------------------------
+T 46418.02               // Kelvin, electronic temperature
+npl 28                  // degree of polynomial for SQ
+Rcut 6                  // truncation or localization radius
+
+// ---------------- Numerical parameters ----------------------
+FD_order 12             // order of finite difference
+poisson_tol 1e-6        // convergence tolerance for Poisson solver
+poisson_maxiter 1000    // max no. of iterations allowed in Poisson solver
+lanczos_tol 1e-6        // convergence tolerance for Lanczos algorithm
+fermi_tol 1e-6          // convergence tolerance for Fermi energy calculation
+scf_tol 1e-4            // convergence tolerance for SCF
+scf_miniter 3           // minimum number of SCF iterations
+scf_maxiter 40          // maximum number of SCF iterations
+
+// ---------------- Linear Solver parameters -----------------------
+beta_aaj 0.6            // relaxation parameter for AAJ Poisson solver
+m_aaj 7                 // no. of iterates in extrapolation = m_aaj+1 for linear solve
+p_aaj 6                 // Anderson update done every p_aaj^th iteration of linear solve
+
+// ---------------- Mixing parameters -----------------------
+beta_scf 0.1            // relaxation parameter for Periodic Pulay acceleration of SCF
+m_scf 7                 // no. of iterates in mixing = m_scf+1 for SCF
+p_scf 2                 // Anderson update done every p_scf^th iteration of scf
+
+// ---------------- Other options -----------------------------
+non_blocking 0          // 1=TRUE or 0=FALSE. Usage of non-blocking MPI collective communication routines 
+prnt_atoms 0            // 1=TRUE or 0=FALSE. Prints atoms & forces info into a .aout file
+restart_scf 0           // 1=TRUE or 0=FALSE. Reads electron density guess from a .restart file
+prnt_scf 0              // 1=TRUE or 0=FALSE. Prints electron density at latest scf iteration into .restart file
+fermi_alg 1             // 1- Brent's algorithm & 2- Newton-Raphson 
+Correction 1            // 1- Old Correction & 2 - New Correction
+
+// ---------------- MD options --------------------------------
+qmass 1                 // Thermostat Mass (in (atomic mass)*(Bohr^2))
+vel_dstr 1              // 1-Maxwell_Boltzmann distribution & 2-Uniform distribution
+ensemble 2              // 1 - NVT && 2 - NVE 
+time_step 1             // in femto-seconds (fs)
+MaxMDsteps 1            // Maximum MD steps >=1 (MD == 1 => No MD)
+ChgExtrap 1             // 1=TRUE or 0=FALSE. Using charge extrapolation for rho_guess in each MD step.
+restart_md 0            // 1=TRUE or 0=FALSE. Reads MD info from a .restartMD file
+name Position2.txt      // Name of the file in which trajectories of a restarted MD simulation will be stored
+prnt_md 1               // 1=TRUE or 0=FALSE. Prints current step MD info into .restartMD file
+RelaxAtoms 0            // 1=TRUE or 0=FALSE. Perform atomic relaxation (energy minimization) (choose MaxMDstep=0)

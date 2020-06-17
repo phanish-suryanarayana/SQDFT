@@ -1,0 +1,169 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+       Spectral Quadrature Density Functional Theory (SQDFT) 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+ 
+SQDFT version-0 
+Starting time: Sun Jul  9 17:08:09 2017
+ 
+Assuming CUBICAL DOMAIN. nprocx=nprocy=nprocz 
+Choosing 5 processors in each direction. Total nproc= 125 
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+ 
+Reading input file... 
+  Atoms       : LiH 
+  ncell       : 1 
+  domain      : [7.37000000 7.37000000 7.37000000] Bohr 
+  n_int       : [15 15 15] 
+  delta       : 0.49133333333333 
+  unit cell   : 7.3700 Bohr
+  max perturb : 0.000 Bohr
+  rand_seed   : 2 
+  T (K)       : 46418.02000000 
+  npl         : 40 
+  Rcut        : 6.387333 Bohr
+  nloc        : 13 
+  FD order    : 12 
+  Poisson Tol : 1e-06 
+  Poisson MaxIter: 500 
+  Lanczos Tol : 1e-06 
+  Fermi Tol   : 1e-06 
+  SCF Tol     : 0.0001 
+  SCF MinIter : 3 
+  SCF MaxIter : 40 
+  beta_aaj    : 0.60 
+  m_aaj       : 7 
+  p_aaj       : 6 
+  beta_scf    : 0.10 
+  m_scf       : 7 
+  p_scf       : 2 
+  non_blocking: 0 
+  prnt_atoms  : 0 
+  time_step   : 1.0000 fs
+  MaxMDsteps  : 1 
+  MD time     : 1.0000 fs
+  ChgExtrap   : 1 
+  restart_scf : 0 
+  prnt_scf    : 0 
+  restart_md  : 0 
+  prnt_md     : 1 
+  RelaxAtoms  : 0 
+  Vel Dstr    : Uniform
+Reading ./LiH.atoms file... 
+8 atoms in unit cell. Replicating unit cell 1 times in each direction... 
+Total number of atoms = 8 
+n_typ: 2 
+Li 1 6.94100000 4 0 8.3527
+./pseudopotentials/psd_Li.pot 
+0.570000000000 0.430000000000 0.370000000000 
+3.685000000000 0.000000000000 3.685000000000 
+3.685000000000 3.685000000000 0.000000000000 
+0.000000000000 3.685000000000 3.685000000000 
+H 1 1.00794000 4 0 8.3527
+./pseudopotentials/psd_H.pot 
+3.685000000000 0.000000000000 0.000000000000 
+0.000000000000 3.685000000000 0.000000000000 
+0.000000000000 0.000000000000 3.685000000000 
+3.685000000000 3.685000000000 3.685000000000 
+Completed reading atoms!
+ 
+Reading pseudopotential file for Li... max rc is: 2.456667 and rz=5.404667 
+done! 
+Reading pseudopotential file for H... max rc is: 1.474000 and rz=2.456667 
+done! 
+ 
+Note: Times printed in parentheses () beside the full time taken indicate the MPI communications part of the calculation. 
+ 
+Time spent in initialization = 1.9075 (0.6925) seconds. 
+Break down: 
+Reading input files time     = 1.6615 (0.4734) seconds. 
+MPI_Barrier after reading    = 0.1900 seconds. 
+Init & create comm topos     = 0.0559 (0.0290) seconds. 
+ 
+Energy Correction (Ha/atom) : -0.00070193389666 
+Poisson solver (AAJ) converged!:  Iterations = 55, Relative Residual = 7.53331e-07, Time = 2.9887 (0.3825) sec
+Rank=0,Poisson Solver took 2.9891 seconds. 
+Lanczos took 49 iterations. 
+Brent's algorithm took 18 iterations. 
+Time stats (sec): MPI_Comm = 1.07 (1.07), Lanczos = 32.12, Cheb_Comps = 9.37, Fermi_energy calc = 12.05 (11.99), Rho_Ebs_Eent = 0.02 (0.01) 
+Poisson solver (AAJ) converged!:  Iterations = 49, Relative Residual = 6.71094e-07, Time = 0.5955 (0.2551) sec
+Iter:1,SCF_err = 0.018343, Fermi energy (Ha) : -1.008217027252  and Total energy (Ha/atom) : -0.532706606432 
+Time taken for current SCF iteration = 55.24 (13.34) sec 
+Lanczos took 49 iterations. 
+Brent's algorithm took 10 iterations. 
+Time stats (sec): MPI_Comm = 0.07 (0.07), Lanczos = 30.97, Cheb_Comps = 9.36, Fermi_energy calc = 5.32 (5.29), Rho_Ebs_Eent = 0.01 (0.00) 
+Poisson solver (AAJ) converged!:  Iterations = 37, Relative Residual = 3.36836e-07, Time = 0.0191 (0.0089) sec
+Iter:2,SCF_err = 0.0158935, Fermi energy (Ha) : -1.006167228746  and Total energy (Ha/atom) : -0.564408401597 
+Time taken for current SCF iteration = 45.75 (5.37) sec 
+Lanczos took 49 iterations. 
+Brent's algorithm took 9 iterations. 
+Time stats (sec): MPI_Comm = 0.04 (0.04), Lanczos = 28.51, Cheb_Comps = 9.31, Fermi_energy calc = 7.67 (7.64), Rho_Ebs_Eent = 0.01 (0.00) 
+Poisson solver (AAJ) converged!:  Iterations = 43, Relative Residual = 3.974e-07, Time = 0.0219 (0.0098) sec
+Iter:3,SCF_err = 0.00198387, Fermi energy (Ha) : -0.993069954064  and Total energy (Ha/atom) : -0.551687196208 
+Time taken for current SCF iteration = 45.57 (7.69) sec 
+Lanczos took 49 iterations. 
+Brent's algorithm took 10 iterations. 
+Time stats (sec): MPI_Comm = 0.04 (0.04), Lanczos = 28.51, Cheb_Comps = 9.31, Fermi_energy calc = 7.68 (7.65), Rho_Ebs_Eent = 0.01 (0.00) 
+Poisson solver (AAJ) converged!:  Iterations = 25, Relative Residual = 8.16063e-07, Time = 0.5486 (0.1516) sec
+Iter:4,SCF_err = 0.0016848, Fermi energy (Ha) : -0.992986215798  and Total energy (Ha/atom) : -0.545518604225 
+Time taken for current SCF iteration = 46.15 (7.87) sec 
+Lanczos took 49 iterations. 
+Brent's algorithm took 10 iterations. 
+Time stats (sec): MPI_Comm = 0.04 (0.04), Lanczos = 28.57, Cheb_Comps = 9.30, Fermi_energy calc = 7.63 (7.59), Rho_Ebs_Eent = 0.01 (0.00) 
+Poisson solver (AAJ) converged!:  Iterations = 31, Relative Residual = 9.47354e-07, Time = 0.0132 (0.0057) sec
+Iter:5,SCF_err = 0.00042707, Fermi energy (Ha) : -0.992378129314  and Total energy (Ha/atom) : -0.544915840292 
+Time taken for current SCF iteration = 45.57 (7.64) sec 
+Lanczos took 49 iterations. 
+Brent's algorithm took 10 iterations. 
+Time stats (sec): MPI_Comm = 0.04 (0.04), Lanczos = 28.61, Cheb_Comps = 9.30, Fermi_energy calc = 7.85 (7.81), Rho_Ebs_Eent = 0.01 (0.00) 
+Poisson solver (AAJ) converged!:  Iterations = 19, Relative Residual = 5.83205e-07, Time = 0.0081 (0.0035) sec
+Iter:6,SCF_err = 0.000380234, Fermi energy (Ha) : -0.992412689712  and Total energy (Ha/atom) : -0.544386960546 
+Time taken for current SCF iteration = 45.82 (7.86) sec 
+Lanczos took 49 iterations. 
+Brent's algorithm took 10 iterations. 
+Time stats (sec): MPI_Comm = 0.04 (0.04), Lanczos = 28.61, Cheb_Comps = 9.30, Fermi_energy calc = 7.66 (7.62), Rho_Ebs_Eent = 0.01 (0.00) 
+Poisson solver (AAJ) converged!:  Iterations = 25, Relative Residual = 6.20585e-07, Time = 0.0107 (0.0042) sec
+Iter:7,SCF_err = 4.60187e-05, Fermi energy (Ha) : -0.992736808027  and Total energy (Ha/atom) : -0.544697801270 
+Time taken for current SCF iteration = 45.63 (7.67) sec 
+SCF converged! 
+No. of  SCF iterations : 7 
+Free energy (Ha/atom)    : -0.544697801270 
+Total SCF time         : 329.73 (57.42) sec 
+
+
+Time stats: Interp=0.0001, VJ calc = 8.3895, bJ calc = 0.2341, gradbJ calc = 0.0078 
+Time taken for local forces = 8.68 sec 
+ 
+Time taken for non-local forces = 21.97 sec 
+ 
+Time taken for MPI_Allreduce of forces = 0.51 sec 
+ 
+Atomic forces: 
+  -0.017820845518    -0.011544988780    -0.009466682119 
+  0.004475176583    -0.001107721775    0.003459663659 
+  0.004741379755    0.004057032876    -0.000993951921 
+  -0.001313577284    0.003255894016    0.002943393242 
+  0.013219935427    -0.001938348445    -0.001670685041 
+  -0.001875628464    0.008358768547    -0.001222381764 
+  -0.001677027784    -0.001270492866    0.006794020517 
+  0.000180104132    0.000141726862    0.000124005296 
+Total forces time      : 31.16 (0.51) sec 
+Time taken to find max 5 forces = 0.00 sec 
+ 
+Symmetrizing forces. 
+Total wall time (comm time)   = 368.4558  seconds. 
+Break down: 
+MPI_Barrier after 1st Poisson = 0.0095 seconds. 
+SCF time                      = 329.7293 seconds. 
+Forces time                   = 31.1647 seconds. 
+Total wall time   = 370.3654 
+============================== 
+ 
+References for SQDFT: 
+   (1) Spectral Quadrature method for accurate O(N) electronic structure calculations of metals and insulators, P.P. Pratapa, P. Suryanarayana, and J.E. Pask, Comput. Phys. Commun. 200, 96--107 (2016). 
+   (2) Anderson acceleration of the Jacobi iterative method: an efficient alternative to Krylov methods for large, sparse linear systems, P.P. Pratapa, P. Suryanarayana, J.E. Pask, J. Comput. Phys. 306, 43--54 (2016). 
+   (3) Periodic Pulay method for robust and efficient convergence acceleration of self-consistent field iterations, A.S. Banerjee, P. Suryanarayana, J.E. Pask, Chem. Phys. Lett. 647, 31--35 (2016). 
+ 
+End of run for 8 atom system on 125 processors. 
+Ending time: Sun Jul  9 17:14:19 2017
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
