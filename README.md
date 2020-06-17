@@ -3,8 +3,8 @@
   (QMD) in the framework of Kohn-Sham Density Functional Theory (DFT).
 
 1. External Libraries:
-    SQDFT uses the following external library:
-    MVAPICH2 2.1, <http://mvapich.cse.ohio-state.edu/news/>
+    SQDFT uses the following external library:  
+    MVAPICH2 2.1, <http://mvapich.cse.ohio-state.edu/news/>  
     The code has been tested using mvapich2/2.1 and intel/15.0 compilers, openmpi/1.8 and 
 	gcc/4.9.0, and IBM mpicxx-4.7.2. 
 
@@ -42,8 +42,8 @@
 6. Tests: 
     The "SQDFT/tests" folder contains two tests:
     
-    - Al
-    - LiH
+    - Al 
+    - LiH  
       These tests can be executed using the mpirun command as described above. The alternative is to
       use the PBS script files that have been provided. The energies and forces in the resulting 
 	  output files should be compared with the reference output files: results_Al and results_LiH 
@@ -72,27 +72,27 @@
    
    - In "SQDFT/src" folder
 
-     anderson.cpp            : Functions for performing Anderson extrapolation 
-     deallocate.cpp           : Function for de-allocating the memory
-     energy.cpp                 : Functions for computing energy
-     forces.cpp                  : Functions for computing the atomic forces
-     initialize.cpp              : Functions for initializion 
-     main.cpp                    : The main function
-     md.cpp                       : Functions required for Quantum Molecular Dynamics (QMD)
-     nonlocal.cpp              : Functions for calculation related to the nonlocal projectors
-     poisson.cpp               : Functions for solving the Poisson's equation 
-     readfiles.cpp             : Functions for reading and storing the inputs from the given input files
-     scf.cpp                        : Functions required in the SCF iteration
-     spline.cpp                  : Functions for doing the 1d cubic spline interpolation
-     sq.cpp                        : Functions for performing Spectral Quadrature (SQ)
+     anderson.cpp            : Functions for performing Anderson extrapolation  
+     deallocate.cpp           : Function for de-allocating the memory   
+     energy.cpp                 : Functions for computing energy  
+     forces.cpp                  : Functions for computing the atomic forces  
+     initialize.cpp              : Functions for initializion  
+     main.cpp                    : The main function  
+     md.cpp                       : Functions required for Quantum Molecular Dynamics (QMD)  
+     nonlocal.cpp              : Functions for calculation related to the nonlocal projectors  
+     poisson.cpp               : Functions for solving the Poisson's equation  
+     readfiles.cpp             : Functions for reading and storing the inputs from the given input files  
+     scf.cpp                        : Functions required in the SCF iteration  
+     spline.cpp                  : Functions for doing the 1d cubic spline interpolation  
+     sq.cpp                        : Functions for performing Spectral Quadrature (SQ)  
    
    - In "SQDFT/tests" folder
 
-     Al                                 : Input and output files for Al
-     LiH                              : input and output files for LiH
-     sqdft.pbs                   : PBS script file   
+     Al                                 : Input and output files for Al  
+     LiH                              : input and output files for LiH  
+     sqdft.pbs                   : PBS script file    
    
    - In "SQDFT" folder
 
-     README.md              : This file
+     README.md              : This file  
      makefile                     : The makefile to compile SQDFT
