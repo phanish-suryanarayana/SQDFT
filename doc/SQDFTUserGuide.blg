@@ -1,0 +1,13 @@
+This is BibTeX, Version 0.99dThe top-level auxiliary file: SQDFTUserGuide.aux
+The style file: unsrt.bst
+Database file #1: SQDFTUserGuide.bib
+I was expecting a `,' or a `}'---line 489 of file SQDFTUserGuide.bib
+ : 
+ : @article{wolberg1988cubic,
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field part---line 577 of file SQDFTUserGuide.bib
+ :    eid = 
+ :          ,
+I'm skipping whatever remains of this entry
+(There were 2 error messages)

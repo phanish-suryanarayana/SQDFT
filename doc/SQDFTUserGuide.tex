@@ -1,0 +1,550 @@
+\documentclass[12pt]{report}
+
+\usepackage{fancyhdr}
+\usepackage{fullpage}
+\usepackage{amsmath}
+\usepackage{amsbsy}
+\usepackage{amssymb}
+\usepackage{amscd}
+\usepackage{amsfonts}
+\usepackage{supertabular}
+\usepackage{graphics}
+\usepackage{verbatim}
+\usepackage{epsfig}
+\usepackage{xspace}
+\usepackage{euscript}
+\usepackage{alltt}
+\usepackage{boxedminipage}
+\usepackage{float}
+\usepackage[colorlinks]{hyperref}
+\usepackage{color}
+
+%\usepackage[all]{xy}
+
+% \usepackage[authoryear]{natbib}
+\usepackage{t1enc}
+\usepackage{times,exscale}
+\usepackage{graphicx,calc}
+\usepackage{subfig}
+%\usepackage[ruled,vlined]{algorithm2e}
+% \usepackage{cite}
+\usepackage{epstopdf}
+\usepackage{multirow}
+%\usepackage{pseudocode}
+\usepackage{hyperref}
+
+% \usepackage[dvipsnames]{xcolor}
+
+
+\def\bR{{\mathbf{R}}}
+\def\bx{{\mathbf{x}}}
+\def\bg{{\mathbf{g}}}
+\def\R{{\mathbb{R}}}
+
+\newcommand{\norm}[1]{\| #1 \|}
+
+\begin{document}
+%\maketitle
+
+\begin{titlepage}
+    \begin{center}
+        \vspace*{1cm}
+        
+        \textbf{\LARGE Spectral Quadrature Density Functional Theory \\ \vspace{3mm} (SQDFT)} 
+        \vspace{1.5cm}
+                     
+        \vspace{2.0cm}
+        %Thesis Subtitle
+        \emph{\large Developed by} \\
+        \Large Material Physics \& Mechanics Group\\
+        \Large (PI: Phanish Suryanarayana) \\
+        \Large Georgia Institute of Technology\\
+        \vspace{3.5cm}
+        \Large User guide \\
+\vspace{0.5cm}
+              
+       % \vspace{5.0cm}
+    
+        \vfill
+\vspace{0.2cm}
+        \large\today        % Today's date or a custom date
+
+    \end{center}
+\end{titlepage}
+
+
+\tableofcontents
+\newpage
+
+
+
+\chapter{Introduction}
+Spectral Quadrature Density Functional Theory (SQDFT) code is a C/C++ code for performing high-temperature Born-Oppenheimer Quantum Molecular Dynamics (QMD) in the framework of Kohn-Sham Density Functional Theory (DFT) \cite{Hohenberg,Kohn1965}. SQDFT is being developed by Phanish Suryanarayana's Material Physics \& Mechanics Group at Georgia Institute of Technology. The main features of SQDFT can be summarized as follows:
+\begin{itemize}
+\item Electronic and dynamic properties of extended systems at high-temperatures.
+\item Local Density Approximation (LDA) \cite{Kohn1965}.
+\item Norm-conserving Troullier-Martins pseudopotentials \cite{Troullier}.
+\item Higher-order finite-difference discretization. 
+\item $\mathcal{O}(N)$ Spectral Quadrature (SQ) method \cite{suryanarayana2013spectral,pratapa2015spectral}. 
+\item Parallelization via domain decomposition.
+\end{itemize}
+Please direct any questions and report any bugs to \href{mailto:phanish.suryanarayana@ce.gatech.edu}{phanish.suryanarayana@ce.gatech.edu}. \\ 
+\paragraph{Acknowledgements} This work was supported in part by the National Science Foundation (Grant number 1333500), and, in part, under the auspices of the U.S. Department of Energy by Lawrence Livermore National Laboratory under Contract DE-AC52-07NA27344. Support from the Laboratory Directed Research and Development program at the Lawrence Livermore National Laboratory is gratefully acknowledged. .
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Compilation and execution}
+SQDFT uses the following external library:
+\begin{itemize}
+\item MVAPICH2 2.1, \url{http://mvapich.cse.ohio-state.edu} .
+\end{itemize}
+\vspace{-4mm}
+
+\paragraph{Compilation} SQDFT can be compiled from within the \texttt{SQDFT} folder using the commands:
+\vspace{2mm} \newline 
+\texttt{make clean}\newline
+\texttt{make} \vspace{2mm} \newline
+A successful compilation will lead to the creation of the executable \texttt{SQDFT/lib/sqdft} . \vspace{-4mm}
+
+\paragraph{Execution} SQDFT can be executed in parallel using the \texttt{mpirun} command. Sample PBS script file is available in the \texttt{SQDFT/tests} folder. Note that all simulations using SQDFT require the \texttt{.input} and \texttt{.atoms} files in the root folder, and the corresponding pseudopotential files in the \texttt{./pseudopotentials} subfolder. A detailed description of the contents of these files can be found in Chapter \ref{Chap:Input}, with example prototypes available in the \texttt{SQDFT/tests} folders. 
+
+\textbf{Example:} To run a simulation on $8$ processors with input files \texttt{filename.input} and \texttt{filename.atoms}, use the following command: \vspace{2mm} \newline  
+\texttt{mpirun -np 8 ./lib/sqdft -name filename} \vspace{2mm} \newline
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Inputs} \label{Chap:Input}
+Density Functional Theory (DFT) calculations using SQDFT require the following files as input:
+\begin{itemize}
+\item \texttt{.input} file: User options and parameters.
+\item \texttt{.atoms} file:  Atomic information.
+ 
+\end{itemize}
+In addition, SQDFT requires Troullier-Martins pseudopotential files as generated by the ``atom" code (\url{http://bohr.inesc-mn.pt/~jlm/pseudo.html}). 
+
+\section{The \texttt{.input} file}\label{section:input}
+The \texttt{.input} file contains the user options and parameters---identified through specific case sensitive \emph{keywords}---for the QMD DFT simulation. The \emph{keywords} can be listed in any order, unless specified otherwise. Each line of this file must contain only one \emph{keyword}. 
+
+
+\subsection{System information parameters}
+
+\begin{itemize}
+\item \texttt{atoms\_file} {\it{(a string)}}, default=none
+
+The name of the .atoms file is specified here.
+
+\item \texttt{domain} {\it{(set of three real numbers, each separated by a whitespace delimiter)}}, default=none, unit=Bohr 
+
+The first, second, and third real numbers represent the cubical unit cell size in the $x$, $y$, and $z$-directions, respectively. 
+
+{\bf{Example}}: To specify a domain with $x$, $y$, and $z$-direction lengths of $7.78$, $7.78$, and $7.78$ Bohr, use: 
+
+\texttt{domain 7.78 7.78 7.78}
+
+\item\texttt{n\_int} {\it{(set of three integers, each separated by a whitespace delimiter)}}, default=none
+
+The first, second, and third integers represent the number of finite-difference nodes in the $x$, $y$, and $z$-directions, respectively. The number of FD nodes should be identical in all the three directions. Note that the convergence of results with respect to spatial discretization needs to be verified. 
+
+{\bf{Example}}: To specify a grid with $10$, $10$, and $10$ finite-difference nodes in the $x$, $y$, and $z$-directions, respectively, use:  
+
+\texttt{n\_int 10 10 10}
+
+\item \texttt{ncell} {\it{( a positive integer)}}, default = \texttt{1}
+
+The number of times the unit cell is repeated in each direction. It gets multiplied to the \texttt{domain} and \texttt{n\_int} to give the total simulation domain size and total number of intervals in each direction, respectively. 
+
+{\bf{Example}}: If \texttt{domain}, \texttt{n\_int}, and \texttt{ncell} are specified to be $ 7.78 $ $7.78$ $7.78$, $10$ $10$ $10$ and $3$ then the simulation domain size and number of intervals in each direction will be $23.34$ and $30$, respectively.
+
+\item \texttt{perturb} {\it{(a real number)}}, default=0.0, unit=Bohr
+
+Perturbs all the atoms randomly by a maximum of {\texttt{perturb}} in each direction.
+
+{\bf{Example}}: To perturb the atoms by a maximum of $2.0$ Bohr in each direction use:
+
+\texttt{perturb 2.0}
+
+\item\texttt{rand\_seed} {\it{(a natural number)}}, default=\texttt{2}
+
+The number used as a random seed for perturbation of the atoms.
+
+\end{itemize}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{SQ parameters}
+\begin{itemize}
+
+\item\texttt{T} {\it{(a positive real number)}}, default=none, unit=Kelvin
+
+The electronic and ionic temperature in Kelvin. 
+
+{\bf{Example}}: To specify the temperature as $100000$ K use:
+
+\texttt{T 100000}
+
+\item\texttt{npl} {\it{(a natural number)}}, default=none
+
+The quadrature order for spectral quadrature. It should be a multiple of $4$. Note that the convergence of results with respect to the quadrature order needs to be verified. It decreases with increasing mesh size and temperature.
+
+{\bf{Example}}: To specify the quadrature order as $40$ use:
+
+\texttt{npl 40}
+
+
+\item\texttt{Rcut} {\it{(a positive real number)}}, default=none
+
+It gives the truncation or localization radius. Note that the convergence of results with respect to {\texttt{Rcut}} need to be verified. It decreases with increasing temperature. 
+
+{\bf{Example}}: To specify the value of \texttt{Rcut} as $6.2$ Bohr use:
+
+\texttt{Rcut 6.2}
+
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Numerical parameters}
+\begin{itemize}
+
+\item\texttt{FD\_order} {\it{(a positive integer)}}, default=\texttt{12}
+
+The order of the finite-difference approximation. The default value of $12$ has been found to be an efficient choice for most systems. 
+
+{\bf{Example}}: To specify the finite-difference order as $12$, use: 
+
+\texttt{FD\_order 12}
+
+\item\texttt{poisson\_tol} {\it{(a real number)}}, default=\texttt{1e-6}
+
+The convergence tolerance for Poisson solver.
+ 
+{\bf{Example}}: To specify the Poisson tolerance as \texttt{1e-7}, use: 
+
+\texttt{poisson\_tol 1e-7}
+
+\item\texttt{poisson\_maxiter} {\it{(a positive integer)}}, default=\texttt{1000}
+
+Maximum number of iterations for the Poisson solver. 
+
+{\bf{Example}}: To specify the \texttt{poisson\_maxiter} as $500$, use: 
+
+\texttt{poisson\_maxiter 500}
+
+\item\texttt{lanczos\_tol} {\it{(a real number)}}, default=\texttt{1e-6}
+
+The convergence tolerance for Lanczos Algorithm. 
+
+{\bf{Example}}: To specify the Lanczos tolerance as \texttt{1e-7}, use: 
+
+\texttt{lanczos\_tol 1e-7}
+
+\item\texttt{fermi\_tol} {\it{(a real number)}}, default=\texttt{1e-6}
+
+The convergence tolerance Fermi level calculation.
+ 
+{\bf{Example}}: To specify the Fermi level tolerance as \texttt{1e-7}, use: 
+
+\texttt{fermi\_tol 1e-7}
+
+\item\texttt{scf\_tol} {\it{(a real number)}}, default=\texttt{1e-4}
+
+The convergence tolerance for Self-consistent field (SCF) calculations.
+ 
+{\bf{Example}}: To specify the SCF tolerance as \texttt{1e-6}, use: 
+
+\texttt{scf\_tol 1e-6}
+
+\item\texttt{scf\_miniter} {\it{(a positive integer)}}, default=\texttt{3}
+
+Minimum number of SCF iterations in each MD step.
+ 
+{\bf{Example}}: To specify the minimum iterations as $5$, use: 
+
+\texttt{scf\_miniter 5}
+
+\item\texttt{scf\_maxiter} {\it{(a positive integer)}}, default=\texttt{40}
+
+Maximum number of SCF iterations in each MD step.
+ 
+{\bf{Example}}: To specify the maximum iterations as $100$, use: 
+
+\texttt{scf\_maxiter 100}
+
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Linear Solver parameters}
+
+\begin{itemize}
+\item\texttt{beta\_aaj} {\it{(a floating point number between $0$ and $1$)}}, default=\texttt{0.6}
+
+Relaxation parameter for Alternating Anderson-Richardson (AAR) linear solver \cite{pratapa2016anderson,suryanarayana2016alternating}.
+
+{\bf{Example}}: To specify the relaxation parameter as $0.5$, use: 
+
+\texttt{beta\_aaj 0.5}  
+
+\item\texttt{m\_aaj}: {\it{(a natural number)}}, default=\texttt{7}
+
+Number of previous iterates used for extrapolation in the AAR linear solver.
+
+{\bf{Example}}: To specify the extrapolation history parameter as $5$, use: 
+
+\texttt{m\_aaj 5}  
+
+\item\texttt{p\_aaj}: {\it{(a natural number)}}, default=\texttt{6}
+
+Frequency of Anderson extrapolation in the AAR method. 
+
+{\bf{Example}}: To specify the frequency parameter as $8$, use: 
+
+\texttt{p\_aaj 8}  
+
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Mixing parameters}
+
+\begin{itemize}
+\item\texttt{beta\_scf} {\it{(a floating point number between $0$ and $1$)}}, default=\texttt{0.1}
+
+Relaxation parameter for the Periodic Pulay mixing scheme \cite{banerjee2015periodic}.
+
+{\bf{Example}}: To specify the mixing parameter as $0.5$, use: 
+
+\texttt{beta\_scf 0.5}  
+
+\item\texttt{m\_scf}: {\it{(a natural number)}}, default=\texttt{7}
+
+Number of previous iterates used for extrapolation in the Periodic Pulay mixing scheme.
+
+{\bf{Example}}: To specify the mixing extrapolation history parameter as $5$, use: 
+
+\texttt{m\_scf 5}  
+
+\item\texttt{p\_scf}: {\it{(a natural number)}}, default=\texttt{2}
+
+Frequency of Anderson extrapolation in the Periodic Pulay mixing scheme.
+ 
+{\bf{Example}}: To specify the mixing frequency parameter as $8$, use: 
+
+\texttt{p\_scf 8}  
+
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Other Options}
+
+\begin{itemize}
+\item\texttt{non\_blocking} (\texttt{0} or \texttt{1}), default=\texttt{0}
+
+Flag for usage of non-blocking MPI collective communication routines. 
+
+{\bf{Example}}: To utilize non-blocking MPI, use: 
+
+\texttt{non\_blocking 1}
+
+\item\texttt{print\_atoms} (\texttt{0} or \texttt{1}), default=\texttt{0}
+
+Flag for printing atomic positions and forces into a \texttt{.aout} file. 
+
+{\bf{Example}}: To print the atomic positions and forces to a file, use: 
+
+\texttt{print\_atoms 1}
+
+\item\texttt{restart\_scf} (\texttt{0} or \texttt{1}), default=\texttt{0}
+
+Flag for determining whether the electron density guess should be read from the \texttt{.restart} file.
+ 
+{\bf{Example}}: To read the guess electron density from the \texttt{.restart} file, use: 
+
+\texttt{restart\_scf 1}
+
+\item\texttt{print\_scf} (\texttt{0} or \texttt{1}), default=\texttt{0}
+
+Flag for determining whether the electron density at the end of the last SCF iteration should be written into the .restart file. 
+
+{\bf{Example}}: To write the electron density into a .restart file, use: 
+
+\texttt{print\_scf 1}
+
+\item\texttt{fermi\_alg} (\texttt{1} or \texttt{2}), default=\texttt{1}
+
+Flag for choosing between Brent's algorithm and Newton-Raphson for calculation of the Fermi level. 
+
+{\bf{Example}}: To use Newton-Raphson algorithm , use: 
+
+\texttt{fermi\_alg 2}
+
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{MD Options}
+
+\begin{itemize}
+\item\texttt{qmass} {\it{(a positive real number)}}, default=\texttt{1}, unit=(atomic mass unit) $\times$ Bohr$^2$
+
+Thermostat mass in NVT simulations.
+ 
+{\bf{Example}}: To set the thermostat mass as $0.1$, use: 
+
+\texttt{qmass 0.1}
+
+\item\texttt{vel\_dstr} {(\texttt{1} or \texttt{2})}, default=\texttt{1}, unit=Bohr/fs
+
+Flag for choosing between the initial velocity distribution for the atoms in the QMD simulation. $1$ corresponds to Maxwell-Boltzmann distribution and $2$ corresponds to uniform. 
+
+{\bf{Example}}: To specify uniform initial velocity , use: 
+
+\texttt{vel\_dstr 2}
+
+\item\texttt{ensemble} {(\texttt{1} or \texttt{2})}, default=none
+
+Flag for specifying either canonical (NVT) or microcanonical (NVE) ensemble.
+ 
+{\bf{Example}}: To perform an NVT simulation , use: 
+
+\texttt{ensemble 1}
+
+\item\texttt{time\_step} {\it{(a positive real number)}}, default=none, unit=fs
+
+Time step for QMD simulations.
+ 
+{\bf{Example}}: To specify a time step as $0.5$, use: 
+
+\texttt{time\_step 0.5}
+
+\item\texttt{MaxMDsteps} {\it{(a positive integer)}}, default=none
+
+Number of time steps in the QMD simulation.
+
+{\bf{Example}}: To specify the number of steps as $1000$, use: 
+
+\texttt{MaxMDsteps 1000}
+
+\item\texttt{ChgExtrap} {(\texttt{0} or \texttt{1})}, default=\texttt{1}
+
+Flag for choosing electron density extrapolation between MD steps.
+ 
+{\bf{Example}}: To employ charge extrapolation, use: 
+
+\texttt{ChgExtrap 1}
+
+\item\texttt{restart\_md} {(\texttt{0} or \texttt{1})}, default=\texttt{0}
+
+Flag for restarting the QMD simulation with the information stored in the \texttt{.restartMD} file.
+ 
+{\bf{Example}}: To restart the QMD simulation, use: 
+
+\texttt{restart\_md 1}
+
+\item\texttt{name} {(a string )}, default=\texttt{position2.txt}
+
+Name of file in which trajectories of a QMD simulation are stored.
+
+\item\texttt{prnt\_md} (\texttt{0} or \texttt{1}), default=\texttt{1}
+
+Flag for choosing whether the current QMD step's information should be stored in .restartMD file. 
+
+{\bf{Example}}: To specify the parameter as $0$, use: 
+
+\texttt{prnt\_md 0}
+
+\item\texttt{RelaxAtoms} (\texttt{0} or \texttt{1}), default=\texttt{0}
+
+Flag for specifying whether atomic relaxation is performed.
+ 
+{\bf{Example}}: To perform atomic relaxation, use: 
+
+\texttt{RelaxAtoms 1}
+
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{The \texttt{.atoms} file}\label{section:ion}
+The \texttt{.atoms} file is used to provide the required atomic information, i.e, the type, number, and position of atoms. The layout of the file is as follows. The first line specifies the total number of atoms. It is followed by number of types of atoms in the second line. Subsequently, data \emph{blocks} are used to provide information related to each of the atomic species in the system. The first line of each \emph{block} contains---separated by a whitespace delimiter---the symbol for the chemical element, the number of valence electrons, atomic mass, number of such atoms, local component of pseudopotential, cut-off radii for the pseudocharge density, and ends with the path of pseudo-potential file on the next line. The remainder of the \emph{block} contains their atomic positions, with the $x$, $y$, $z$-coordinates---separated by a whitespace delimiter---of each atom listed on a separate line. \vspace{3mm}
+
+\noindent \textbf{Example}: The contents of the \texttt{.atoms} file for an $8$-atom unit cell of Lithium Hydride : \vspace{1.0mm}
+
+\noindent
+\texttt{8} \\
+\texttt{n\_typ 2}\\
+
+\noindent
+\texttt{Atoms}\\
+\texttt{Li 1 6.941 4 0 8}\newline
+\texttt{./pseudopotentials/psd\_Li.pot}\\
+\texttt{0.570000000000000   0.430000000000000   0.370000000000000}\newline
+\texttt{3.685000000000000   0.000000000000000   3.685000000000000}\newline
+\texttt{3.685000000000000   3.685000000000000   0.000000000000000}\newline
+\texttt{0.000000000000000   3.685000000000000   3.685000000000000}\newline
+
+\noindent  
+\texttt{H 1 1.00794 4 0 8} \newline
+\texttt{./pseudopotentials/psd\_H.pot}\\
+\texttt{3.685000000000000   0.000000000000000   0.000000000000000}\newline
+\texttt{0.000000000000000   0.000000000000000   3.685000000000000}\newline
+\texttt{0.000000000000000   0.000000000000000   3.685000000000000}\newline
+\texttt{3.685000000000000   3.685000000000000   3.685000000000000}\newline
+   
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Outputs}
+In addition to the output file options listed in the previous chapter, SQDFT prints the following information into the output (\texttt{.out}) file as separate \emph{blocks}:
+\begin{itemize}
+\item \texttt{Input parameters}: The options and parameters specified by the user. 
+\item \texttt{Initialization}: The initialization details. 
+\item \texttt{Pseudocharge formulation}: The total pseudocharge, self energy of the pseudocharge densities, and the repulsive energy correction. 
+\item \texttt{Self Consistent Field}: The free energy and the normalized residual of the effective potential in each Self Consistent Field (SCF) iteration.
+\item \texttt{Energy and atomic forces}: The free energy as well as its individual components, the Fermi energy, forces in all directions and mean energies and temperature for MD calculations.
+\item \texttt{Timing summary}: The summary of timings of different parts of the calculation.
+\end{itemize} 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Frequently Asked Questions (FAQs)}
+
+\begin{itemize}
+
+\item{\bf{Question}}: Is SQDFT compatible with other versions of MVAPICH?
+
+{\bf{Answer}}: Though SQDFT has been tested with other versions of MVAPICH, there is a possibility of facing compilation issues. 
+
+\item{\bf{Question}}: Are any exchange-correlation functionals other than Local Density Approximation (LDA) supported by SQDFT?
+
+{\bf{Answer}}: SQDFT currently only supports LDA. Other exchange-correlation functionals will be incorporated into future releases of SQDFT. 
+
+
+\item{\bf{Question}}: Are any pseudopotentials other than Troullier-Martins supported by SQDFT?
+
+{\bf{Answer}}: SQDFT currently only supports Troullier-Martins pseudopotentials. Ability to utilize other pseudopotentials will be incorporated into future releases of SQDFT. 
+
+\item{\bf{Question}}: Are pseudopotentials with non-linear core corrections and relativistic effect supported by SQDFT?
+
+{\bf{Answer}}: No. 
+
+%\item{\bf{Question}}: Why does the simulation hang for a long time or fail during initialization?
+
+%{\bf{Answer}}: This is possibly due to the symbolic matrix-matrix multiplication between the Hamiltonian and the collection of orbitals. Utilizing more computational resources (i.e., memory, number of processors) is likely to resolve this problem.
+
+\end{itemize}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{unsrt}
+% \bibliographystyle{abbrv}
+\bibliography{SQDFTUserGuide}
+
+\end{document} 
+
+
+
+

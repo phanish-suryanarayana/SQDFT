@@ -1,0 +1,24 @@
+#PBS -N SQDFT_test
+#PBS -q mps
+#PBS -o output.sqdft.${PBS_JOBID}
+#PBS -j oe 
+#PBS -l nodes=4:ppn=64
+#PBS -l mem=100gb
+#PBS -l walltime=100:00:00
+MYPROCS=216
+
+module purge
+module load intel/15.0 
+module load mvapich2/2.1   
+
+which mpirun 
+echo $MYPROCS
+
+ulimit -s unlimited
+
+cd ${PBS_O_WORKDIR}
+echo $PWD
+echo "======================================================================="
+mpirun -np $MYPROCS ./lib/sqdft -name test_Al -log_summary > results_Al.${PBS_JOBID}
+echo "======================================================================="
+

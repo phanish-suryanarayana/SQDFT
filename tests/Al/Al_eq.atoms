@@ -1,0 +1,11 @@
+4            // total number of atoms (mention on the first line)
+n_typ 1       // no. of types of atoms
+
+// symbol, valence charge, atomic mass,no. of atoms, lloc (local component of pseudopotential), rb (cut-off radius for b-calc in Bohr), followed by path (less than 1000 chars) of pseudo-potential file on the next line, followed by atom coordinates 
+Atoms
+Al 3 26.9815385 4 1 6     
+../../pseudopotentials/psd_Al.pot
+0.0000 0.0000 0.0000
+0.0000 3.8900 3.8900
+3.8900 0.0000 3.8900
+3.7400 3.4900 0.3700
